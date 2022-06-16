@@ -1,7 +1,4 @@
-// import got from 'got';
-// import { HttpProxyAgent } from 'hpagent';
-import axios from 'axios';
-import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
+import { HttpsProxyAgent } from 'hpagent';
 import get from 'simple-get';
 
 export interface ApiResponse {
@@ -51,6 +48,3 @@ export class ApiRequestHelper {
     }
 
 }
-
-
-// ApiRequestHelper.post('https://api-service.david-health.cn/api/v1/Ip/getClientIp', {}, 'http://proxy_user:F2pkto4GtRPAqTpY@x.orzzzzzz.com:7789');

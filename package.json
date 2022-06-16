@@ -23,15 +23,10 @@
   "author": "yuanzhibang.com",
   "license": "Apache License 2.0",
   "dependencies": {
-    "axios": "^0.27.2",
     "crypto": "^1.0.1",
-    "got": "^12.1.0",
     "hpagent": "^1.0.0",
-    "needle": "^2.2.0",
-    "node-fetch": "^3.2.6",
     "redis": "^4.1.0",
     "simple-get": "^4.0.1",
-    "socks-proxy-agent": "^7.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
