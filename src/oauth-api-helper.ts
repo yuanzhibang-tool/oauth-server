@@ -11,7 +11,6 @@ export class OpenAuthError extends Error {
 }
 
 export class OauthApiHelper {
-
     static checkCode(appId: string, code: string, type: string) {
         const api = OauthApiHelper.getApiByPath("/OAuth2/checkCode");
         const postData = {
@@ -35,11 +34,11 @@ export class OauthApiHelper {
     }
 
 
-    static getAppUserCount(appId: string) {
+    static getAppUserCount(appId: string, serverAccessToken: string) {
         const api = OauthApiHelper.getApiByPath("/CommonResource/getUserCount");
         const postData = {
             'app_id': appId,
-            'access_token': OauthApiHelper.getServerAccessToken(appId)
+            'access_token': serverAccessToken
         };
         return new Promise<number>((resolve, reject) => {
             this.apiRequest(api, postData).then((data) => {
@@ -52,11 +51,11 @@ export class OauthApiHelper {
         });
     }
 
-    static getAppUserList(appId: string) {
-        const api = OauthApiHelper.getApiByPath("/UserResource/getAppAccess");
+    static getAppUserList(appId: string, serverAccessToken: string) {
+        const api = OauthApiHelper.getApiByPath("/CommonResource/getUserList");
         const postData = {
             'app_id': appId,
-            'access_token': OauthApiHelper.getServerAccessToken(appId),
+            'access_token': serverAccessToken,
             'load_more_id': 0,
             'load_more_count': 100
         };
@@ -70,12 +69,12 @@ export class OauthApiHelper {
         });
     }
 
-    static getUserAppAccess(appId: string, openId: string) {
+    static getUserAppAccess(appId: string, openId: string, serverAccessToken: string) {
         const api = OauthApiHelper.getApiByPath("/UserResource/getAppAccess");
         const postData = {
             'open_id': openId,
             'app_id': appId,
-            'access_token': OauthApiHelper.getServerAccessToken(appId)
+            'access_token': serverAccessToken
         };
         return new Promise<Array<string>>((resolve, reject) => {
             this.apiRequest(api, postData).then((data) => {
@@ -87,12 +86,12 @@ export class OauthApiHelper {
         });
     }
 
-    static getUserIsAppAdded(appId: string, openId: string) {
+    static getUserIsAppAdded(appId: string, openId: string, serverAccessToken: string) {
         const api = OauthApiHelper.getApiByPath("/UserResource/getAppIsAdded");
         const postData = {
             'open_id': openId,
             'app_id': appId,
-            'access_token': OauthApiHelper.getServerAccessToken(appId)
+            'access_token': serverAccessToken
         };
         return new Promise<boolean>((resolve, reject) => {
             this.apiRequest(api, postData).then((data) => {
@@ -106,12 +105,12 @@ export class OauthApiHelper {
     }
 
 
-    static getUserBaseInfo(appId: string, openId: string) {
+    static getUserBaseInfo(appId: string, openId: string, serverAccessToken: string) {
         const api = OauthApiHelper.getApiByPath("/UserResource/getUserBaseInfo");
         const postData = {
             'open_id': openId,
             'app_id': appId,
-            'access_token': OauthApiHelper.getServerAccessToken(appId)
+            'access_token': serverAccessToken
         };
         return new Promise<any>((resolve, reject) => {
             this.apiRequest(api, postData).then((data) => {
@@ -131,10 +130,6 @@ export class OauthApiHelper {
     static getApiByPath(path: string) {
         const api = `https://oauth.yuanzhibang.com${path}`;
         return api;
-    }
-
-    static getServerAccessToken(appId: string) {
-        return "88d44ec64698d60bf1841b4e8bde4754de87a239ada9284405f403809bd83987";
     }
 
     static apiRequest(url: string, postData: object) {

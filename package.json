@@ -6,8 +6,8 @@
   "module": "es6/index.js",
   "types": "es6/index.d.ts",
   "scripts": {
-    "start-test-redis": "docker stop test-redis-server && docker rm test-redis-server && docker run  -p 6379:6379 -d --name test-redis-server redis",
-    "stop-test-redis": "docker stop test-redis-server && docker rm test-redis-server",
+    "start-test-redis": "docker stop test-redis-server ; docker rm test-redis-server  ; docker run  -p 6379:6379 -d --name test-redis-server redis",
+    "stop-test-redis": "docker stop test-redis-server ; docker rm test-redis-server;",
     "pretest": "npm run start-test-redis",
     "posttest": "npm run stop-test-redis",
     "test": "jest --runInBand --colors --coverage test",
@@ -23,10 +23,15 @@
   "author": "yuanzhibang.com",
   "license": "Apache License 2.0",
   "dependencies": {
+    "axios": "^0.27.2",
     "crypto": "^1.0.1",
     "got": "^12.1.0",
     "hpagent": "^1.0.0",
+    "needle": "^2.2.0",
+    "node-fetch": "^3.2.6",
     "redis": "^4.1.0",
+    "simple-get": "^4.0.1",
+    "socks-proxy-agent": "^7.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

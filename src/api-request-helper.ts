@@ -1,5 +1,8 @@
-import got from 'got';
-import { HttpsProxyAgent } from 'hpagent';
+// import got from 'got';
+// import { HttpProxyAgent } from 'hpagent';
+import axios from 'axios';
+import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
+import get from 'simple-get';
 
 export interface ApiResponse {
     status: string;
@@ -8,39 +11,45 @@ export interface ApiResponse {
 }
 
 export class ApiRequestHelper {
-    static post(api: string, data: any, proxy: string | null = null) {
+    static post(api: string, data: any, proxy: any | null = null) {
         let agent: any = null;
         if (proxy) {
-            const httpAgent = new HttpsProxyAgent({
+            agent = new HttpsProxyAgent({
                 keepAlive: true,
                 keepAliveMsecs: 1000,
                 maxSockets: 256,
                 maxFreeSockets: 256,
+                scheduling: 'lifo',
                 proxy
             })
-            agent = {
-                https: httpAgent,
-                http: httpAgent
-            }
         }
 
         return new Promise<ApiResponse>((resolve, reject) => {
-            got.post(api, {
-                form: data,
+            const opts: any = {
+                method: 'POST',
+                url: api,
                 agent
-            }).then((response) => {
-                const stringBody = response.body;
-                try {
-                    const responseObject = JSON.parse(stringBody);
-                    resolve(responseObject);
-                } catch (error) {
-                    reject(error)
+            }
+            if (data) {
+                opts.form = data;
+            }
+            get.concat(opts, (err, res, data) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    const stringBody = data.toString();
+                    try {
+                        const responseObject = JSON.parse(stringBody);
+                        resolve(responseObject);
+                    } catch (error) {
+                        reject(stringBody)
+                    }
+                    resolve(res);
                 }
-            }).catch((error) => {
-                reject(error)
             });
         });
     }
+
 }
 
 
