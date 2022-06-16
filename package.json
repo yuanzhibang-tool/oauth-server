@@ -6,19 +6,19 @@
   "module": "es6/index.js",
   "types": "es6/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "test": "jest --runInBand --env=node --colors --coverage test",
+    "start-test-redis": "docker stop test-redis-server && docker rm test-redis-server && docker run  -p 6379:6379 -d --name test-redis-server redis",
+    "stop-test-redis": "docker stop test-redis-server && docker rm test-redis-server",
+    "pretest": "npm run start-test-redis",
+    "posttest": "npm run stop-test-redis",
+    "test": "jest --runInBand --colors --coverage test",
     "prod": "tsc -p tsconfig-commonjs.json ; tsc -p tsconfig-es6.json",
-    "prepublish-npm": "rm -rf dist ; npm run prod ; cp package.json dist/package.json  ; cp LICENSE dist/LICENSE ; cp NOTICE dist/NOTICE ; cp README.md dist/README.md ;",
+    "prepublish-npm": "rm -rf dist ; npm run prod ; cp package.json dist/package.json ; cp LICENSE dist/LICENSE ; cp NOTICE dist/NOTICE ; cp README.md dist/README.md ;",
     "publish-npm": "cd dist ; npm publish --access public --registry https://registry.npmjs.com",
     "release": "./script/release.sh"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yuanzhibang-tool/oauth-server.git"
+    "url": "https://github.com/yuanzhibang-tool/oauth-server.git"
   },
   "author": "yuanzhibang.com",
   "license": "Apache License 2.0",
@@ -32,9 +32,11 @@
   "devDependencies": {
     "@types/jest": "^27.5.1",
     "@types/node": "^17.0.33",
+    "@typescript-eslint/parser": "^5.28.0",
     "ts-jest": "^28.0.2",
     "ts-lint": "^4.5.1",
-    "typescript": "^4.6.4"
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.3"
   },
   "exports": {
     ".": {

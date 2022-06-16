@@ -8,8 +8,8 @@ export interface ApiResponse {
 }
 
 export class ApiRequestHelper {
-    static post(api: string, data: any, proxy: string = null) {
-        let agent = null;
+    static post(api: string, data: any, proxy: string | null = null) {
+        let agent: any = null;
         if (proxy) {
             const httpAgent = new HttpsProxyAgent({
                 keepAlive: true,

@@ -48,13 +48,13 @@ export class RedisHelper {
     }
 }
 
-async function test() {
-    const helper = new RedisHelper('redis://default:p8WOmXgzZg@demo-dev-cache-redis:6379');
-    await helper.setTestData("100027");
-    const jsTicket = await helper.getJsTicket("100027");
-    const serverAccessToken = await helper.getServerAccessToken("100027");
-    console.log(jsTicket);
-    console.log(serverAccessToken);
-}
+// async function test() {
+//     const helper = new RedisHelper('redis://default:p8WOmXgzZg@demo-dev-cache-redis:6379');
+//     await helper.setTestData("100027");
+//     const jsTicket = await helper.getJsTicket("100027");
+//     const serverAccessToken = await helper.getServerAccessToken("100027");
+//     console.log(jsTicket);
+//     console.log(serverAccessToken);
+// }
 
-test();
+// test();
