@@ -23,11 +23,11 @@
       "preLaunchTask": "npm: pretest",
       "postDebugTask": "npm: posttest",
       "env": {
-        "TEST_APP_ID": "your_app_id",
-        "TEST_PROXY": "http://proxy_user:proxy_password@proxy_host:proxy_port",
-        "TEST_PROXY_IP": "your_proxy_ip",
-        "TEST_CODE": "your server access code",
-        "TEST_OPEN_ID": "your app one user open id",
+        "TEST_APP_ID": "101170",
+        "TEST_PROXY": "http://proxy_user:F2pkto4GtRPAqTpY@39.106.214.101:7789",
+        "TEST_PROXY_IP": "39.106.214.101",
+        "TEST_CODE": "b526b2a416beefeb884307fc8b175b5a0871032e254aac08c0c9f1d9785e820b",
+        "TEST_OPEN_ID": "b3dFUWFoMW0vUFgwSGxzWlNOV3JLc2pFRENnSlp6Z2NBMFpsZ3NvQXVMVTR2RnJsUkRtQU5MS1Z3V2hSYzdtQ3hnQkZzelhjT0lXbTBGWmVOdHBRYTAwNys0NisramlxU21PZ3lrb1o5Q3FORC96bStTNW5ZbEtiRjRLeUQ5SVFsN1gyUHVld1lJaDkvWGJqZ0trNGx3eWZaUWhORDc1UjBWSGFDWVpFNlhnPQ",
       },
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
