@@ -48,10 +48,10 @@ describe('OauthApiHelper check', () => {
         expect(typeof result === 'number').toEqual(true);
     });
 
-    test('check getAppUserList', async () => {
-        const result = await OauthApiHelper.getAppUserList(appId, code);
-        expect(Array.isArray(result)).toEqual(true);
-    });
+    // test('check getAppUserList', async () => {
+    //     const result = await OauthApiHelper.getAppUserList(appId, code);
+    //     expect(Array.isArray(result)).toEqual(true);
+    // });
     test('check getUserAppAccess', async () => {
         const result = await OauthApiHelper.getUserAppAccess(appId, openId, code);
         expect(Array.isArray(result)).toEqual(true);
