@@ -1,11 +1,9 @@
-import { isObject } from 'util';
-import { isBooleanObject } from 'util/types';
 import { OauthApiHelper } from '../src/oauth-api-helper';
 
 
-const appId = '101170';
-const code = 'df71774c79004765db6d49f8b0730c556f3239b9666ad1d0474990088b32f07b';
-const openId = "b3dFUWFoMW0vUFgwSGxzWlNOV3JLc2pFRENnSlp6Z2NBMFpsZ3NvQXVMVTR2RnJsUkRtQU5MS1Z3V2hSYzdtQ3hnQkZzelhjT0lXbTBGWmVOdHBRYTAwNys0NisramlxU21PZ3lrb1o5Q3FORC96bStTNW5ZbEtiRjRLeUQ5SVFsN1gyUHVld1lJaDkvWGJqZ0trNGx3eWZaUWhORDc1UjBWSGFDWVpFNlhnPQ";
+const appId = process.env.TEST_APP_ID as string;
+const code = process.env.TEST_CODE as string;
+const openId = process.env.TEST_OPEN_ID as string;
 
 describe('OauthApiHelper check', () => {
     test('check OauthApiHelper right', async () => {

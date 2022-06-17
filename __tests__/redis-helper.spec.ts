@@ -1,7 +1,7 @@
 import { RedisHelper } from '../src/redis-helper';
 import { createClient } from 'redis';
 
-const appId = "100027";
+const appId = process.env.TEST_APP_ID as string;
 const redisUrl = "redis://localhost:6379";
 const setTestData = async () => {
     const testClient = createClient({ url: redisUrl });

@@ -20,6 +20,15 @@
         "${workspaceRoot}/node_modules/.bin/jest",
         "--runInBand"
       ],
+      "preLaunchTask": "npm: pretest",
+      "postDebugTask": "npm: posttest",
+      "env": {
+        "TEST_APP_ID": "your_app_id",
+        "TEST_PROXY": "http://proxy_user:proxy_password@proxy_host:proxy_port",
+        "TEST_PROXY_IP": "your_proxy_ip",
+        "TEST_CODE": "your server access code",
+        "TEST_OPEN_ID": "your app one user open id",
+      },
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     }

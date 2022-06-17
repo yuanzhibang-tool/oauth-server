@@ -3,12 +3,12 @@ import { ApiRequestHelper } from '../src/api-request-helper';
 describe('ApiRequestHelper check', () => {
 
     test('check post proxy', async () => {
+        const proxy = process.env.TEST_PROXY;
+        const expectIp = process.env.TEST_PROXY_IP;
         try {
-            const proxy = 'http://proxy_user:F2pkto4GtRPAqTpY@x.orzzzzzz.com:7789'
-            await ApiRequestHelper.post("https://api-service.david-health.cn/api/v1/Ip/getClientIp", null, proxy);
+            await ApiRequestHelper.post("https://api-service.yuanzhibang.com/api/v1/Ip/getClientIp", null, proxy);
         } catch (error) {
-            expect(error).toEqual("144.202.101.220");
+            expect(error).toEqual(expectIp);
         }
-
     });
 });

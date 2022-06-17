@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "pretest",
+			"problemMatcher": [],
+			"label": "npm: pretest",
+			"detail": "npm run start-test-redis"
+		},
+		{
+			"type": "npm",
+			"script": "posttest",
+			"problemMatcher": [],
+			"label": "npm: posttest",
+			"detail": "npm run stop-test-redis"
+		}
+	]
+}
