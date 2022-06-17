@@ -11,7 +11,7 @@ export class OpenAuthError extends Error {
 }
 
 export class OauthApiHelper {
-    static checkCode(appId: string, code: string, type: string) {
+    static checkCode(appId: string, code: string, type: string, proxy: string | null = null) {
         const api = OauthApiHelper.getApiByPath("/OAuth2/checkCode");
         const postData = {
             'app_id': appId,
@@ -19,7 +19,7 @@ export class OauthApiHelper {
             'type': type
         };
         return new Promise<any>((resolve, reject) => {
-            this.apiRequest(api, postData).then((data) => {
+            this.apiRequest(api, postData, proxy).then((data) => {
                 resolve(data);
             }
             ).catch((error) => {
@@ -34,14 +34,14 @@ export class OauthApiHelper {
     }
 
 
-    static getAppUserCount(appId: string, serverAccessToken: string) {
+    static getAppUserCount(appId: string, serverAccessToken: string, proxy: string | null = null) {
         const api = OauthApiHelper.getApiByPath("/CommonResource/getUserCount");
         const postData = {
             'app_id': appId,
             'access_token': serverAccessToken
         };
         return new Promise<number>((resolve, reject) => {
-            this.apiRequest(api, postData).then((data) => {
+            this.apiRequest(api, postData, proxy).then((data) => {
                 const count = data['user_count'];
                 resolve(count);
             }
@@ -51,7 +51,7 @@ export class OauthApiHelper {
         });
     }
 
-    static getAppUserList(appId: string, serverAccessToken: string) {
+    static getAppUserList(appId: string, serverAccessToken: string, proxy: string | null = null) {
         const api = OauthApiHelper.getApiByPath("/CommonResource/getUserList");
         const postData = {
             'app_id': appId,
@@ -60,7 +60,7 @@ export class OauthApiHelper {
             'load_more_count': 100
         };
         return new Promise<Array<string>>((resolve, reject) => {
-            this.apiRequest(api, postData).then((data) => {
+            this.apiRequest(api, postData, proxy).then((data) => {
                 resolve(data);
             }
             ).catch((error) => {
@@ -69,7 +69,7 @@ export class OauthApiHelper {
         });
     }
 
-    static getUserAppAccess(appId: string, openId: string, serverAccessToken: string) {
+    static getUserAppAccess(appId: string, openId: string, serverAccessToken: string, proxy: string | null = null) {
         const api = OauthApiHelper.getApiByPath("/UserResource/getAppAccess");
         const postData = {
             'open_id': openId,
@@ -77,7 +77,7 @@ export class OauthApiHelper {
             'access_token': serverAccessToken
         };
         return new Promise<Array<string>>((resolve, reject) => {
-            this.apiRequest(api, postData).then((data) => {
+            this.apiRequest(api, postData, proxy).then((data) => {
                 resolve(data);
             }
             ).catch((error) => {
@@ -86,7 +86,7 @@ export class OauthApiHelper {
         });
     }
 
-    static getUserIsAppAdded(appId: string, openId: string, serverAccessToken: string) {
+    static getUserIsAppAdded(appId: string, openId: string, serverAccessToken: string, proxy: string | null = null) {
         const api = OauthApiHelper.getApiByPath("/UserResource/getAppIsAdded");
         const postData = {
             'open_id': openId,
@@ -94,7 +94,7 @@ export class OauthApiHelper {
             'access_token': serverAccessToken
         };
         return new Promise<boolean>((resolve, reject) => {
-            this.apiRequest(api, postData).then((data) => {
+            this.apiRequest(api, postData, proxy).then((data) => {
                 const isAdded = data['is_added'];
                 resolve(isAdded);
             }
@@ -105,7 +105,7 @@ export class OauthApiHelper {
     }
 
 
-    static getUserBaseInfo(appId: string, openId: string, serverAccessToken: string) {
+    static getUserBaseInfo(appId: string, openId: string, serverAccessToken: string, proxy: string | null = null) {
         const api = OauthApiHelper.getApiByPath("/UserResource/getUserBaseInfo");
         const postData = {
             'open_id': openId,
@@ -113,7 +113,7 @@ export class OauthApiHelper {
             'access_token': serverAccessToken
         };
         return new Promise<any>((resolve, reject) => {
-            this.apiRequest(api, postData).then((data) => {
+            this.apiRequest(api, postData, proxy).then((data) => {
                 resolve(data);
             }
             ).catch((error) => {
@@ -132,9 +132,9 @@ export class OauthApiHelper {
         return api;
     }
 
-    static apiRequest(url: string, postData: object) {
+    static apiRequest(url: string, postData: object, proxy: string | null = null) {
         return new Promise<any>((resolve, reject) => {
-            ApiRequestHelper.post(url, postData, null).then((responseInfo) => {
+            ApiRequestHelper.post(url, postData, proxy).then((responseInfo) => {
                 const status = responseInfo.status;
                 const message = responseInfo.message;
                 const responseData = responseInfo.data;
