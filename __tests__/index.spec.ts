@@ -6,7 +6,7 @@ describe('ApiRequestHelper check', () => {
         const proxy = process.env.TEST_PROXY;
         const expectIp = process.env.TEST_PROXY_IP;
         try {
-            await ApiRequestHelper.post("https://api-service.yuanzhibang.com/api/v1/Ip/getClientIp", null, proxy);
+            await ApiRequestHelper.post("https://api-service.yuanzhibang.com/api/v1/Ip/getClientIp", {}, proxy);
         } catch (error) {
             expect(error).toEqual(expectIp);
         }
