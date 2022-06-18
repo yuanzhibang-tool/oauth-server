@@ -122,6 +122,7 @@ export class JsSignHelper {
         returnData['timestamp'] = "$timestamp";
         returnData['nonce_str'] = noncestr;
         returnData['signature'] = sign;
+        returnData['url'] = url;
         return returnData;
     }
 
