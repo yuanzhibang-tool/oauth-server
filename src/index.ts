@@ -180,6 +180,28 @@ export class OpenAuthError extends Error {
 export class OauthApiHelper {
 
     /**
+     * 使用免登陆code获取用户open_id的方法.参考http://doc.yuanzhibang.com/2798213
+     * @returns  返回用户open_id以及其他信息
+     */
+    static token(appId: string, code: string, secret: string, proxy: string | null = null): Promise<number> {
+        const api = OauthApiHelper.getApiByPath("/CommonResource/getUserCount");
+        const postData = {
+            'app_id': appId,
+            code,
+            secret,
+            'grant_type': 'authorization_code'
+        };
+        return new Promise<number>((resolve, reject) => {
+            this.apiRequest(api, postData, proxy).then((data) => {
+                resolve(data);
+            }
+            ).catch((error) => {
+                reject(error);
+            });
+        });
+    }
+
+    /**
      * 检测code是否有效的方法,access_token,js_ticket.参考http://doc.yuanzhibang.com/2798213#access_tokenjs_ticket_127
      * @returns  有效返回{"expires_in":12323441},无效返回false
      */
