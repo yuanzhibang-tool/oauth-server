@@ -122,7 +122,7 @@ export class JsSignHelper {
         const sign = JsSignHelper.getSign(jsTicket, noncestr, timestamp, url);
         const returnData: any = {};
         returnData['app_id'] = appId;
-        returnData['timestamp'] = "$timestamp";
+        returnData['timestamp'] = `${timestamp}`;
         returnData['nonce_str'] = noncestr;
         returnData['signature'] = sign;
         returnData['url'] = url;

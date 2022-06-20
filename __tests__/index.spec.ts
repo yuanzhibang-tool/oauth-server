@@ -47,9 +47,8 @@ describe('JsSignHelper check', () => {
 
         const timeDiff = Math.floor((new Date()).getTime() / 1000) - Number(signInfo.timestamp);
         expect(timeDiff < 10).toEqual(true);
-
         const expectSign = JsSignHelper.getSign(
-            testJsTickert, signInfo.get("nonce_str"), signInfo.timestamp, url);
+            testJsTickert, signInfo.nonce_str, signInfo.timestamp, url);
         expect(signInfo.signature).toEqual(expectSign);
     });
 });
