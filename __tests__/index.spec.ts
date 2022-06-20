@@ -35,6 +35,23 @@ describe('JsSignHelper check', () => {
         const sign = JsSignHelper.getSign("a4dcdk", "1234", 1654850924, "https://yuanzhibang.com/a/b/?x=1&v=x#12");
         expect(sign).toEqual("a8cb02e00c2759372954bf5516d110066b911aa4");
     });
+
+    test('check getSignInfo', () => {
+        const appId = process.env.TEST_APP_ID;
+        const url = "https://yuanzhibang.com/a/b/?x=1&v=x#12";
+        const testJsTickert = "123";
+        const signInfo: any = JsSignHelper.getJsSignInfo(
+            appId as string, url, testJsTickert);
+        expect(signInfo.app_id).toEqual(appId);
+        expect(signInfo.url).toEqual(url);
+
+        const timeDiff = Math.floor((new Date()).getTime() / 1000) - Number(signInfo.timestamp);
+        expect(timeDiff < 10).toEqual(true);
+
+        const expectSign = JsSignHelper.getSign(
+            testJsTickert, signInfo.get("nonce_str"), signInfo.timestamp, url);
+        expect(signInfo.signature).toEqual(expectSign);
+    });
 });
 
 const appId = process.env.TEST_APP_ID as string;
@@ -45,6 +62,7 @@ describe('OauthApiHelper check', () => {
     test('check OauthApiHelper right', async () => {
         const result: object = await OauthApiHelper.checkCode(appId, code, 'access_token');
         expect(result.hasOwnProperty('expires_in')).toEqual(true);
+        expect(typeof result['expires_in'] === 'number').toEqual(true);
     });
 
     test('check OauthApiHelper wrong', async () => {
