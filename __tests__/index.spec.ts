@@ -1,15 +1,11 @@
 import { JsSignHelper, ApiRequestHelper, OauthApiHelper, RedisHelper } from "../src/index";
 
 describe('ApiRequestHelper check', () => {
-
     test('check post proxy', async () => {
         const proxy = process.env.TEST_PROXY;
         const expectIp = process.env.TEST_PROXY_IP;
-        try {
-            await ApiRequestHelper.post("https://api-service.yuanzhibang.com/api/v1/Ip/getClientIp", {}, proxy);
-        } catch (error) {
-            expect(error).toEqual(expectIp);
-        }
+        const proxyIp = await ApiRequestHelper.post("https://api-service.yuanzhibang.com/api/v1/Ip/getClientIp", {}, false, proxy);
+        expect(proxyIp).toEqual(expectIp);
     });
 });
 
@@ -19,8 +15,21 @@ describe('JsSignHelper check', () => {
         console.log(guid);
     });
     test('check getPureUrl', () => {
-        const url = JsSignHelper.getPureUrl("https://yuanzhibang.com:80/a/b/?x=1&v=x#12");
-        expect(url).toEqual("https://yuanzhibang.com:80/a/b");
+        let url = "https://yuanzhibang.com/a/b/?x=1&v=x#12";
+        let pureUrl = JsSignHelper.getPureUrl(url);
+        let expectUrl = "https://yuanzhibang.com/a/b";
+        expect(pureUrl).toEqual(expectUrl);
+
+        url = "https://yuanzhibang.com:80/a/b/?x=1&v=x#12";
+        pureUrl = JsSignHelper.getPureUrl(url);
+        expectUrl = "https://yuanzhibang.com:80/a/b";
+        expect(pureUrl).toEqual(expectUrl);
+
+        url = "https://yuanzhibang.com:80/a/b/";
+        pureUrl = JsSignHelper.getPureUrl(url);
+        expectUrl = "https://yuanzhibang.com:80/a/b";
+        expect(pureUrl).toEqual(expectUrl);
+
     });
     test('check getSign', () => {
         const sign = JsSignHelper.getSign("a4dcdk", "1234", 1654850924, "https://yuanzhibang.com/a/b/?x=1&v=x#12");

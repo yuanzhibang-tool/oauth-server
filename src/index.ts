@@ -28,7 +28,7 @@ export class ApiRequestHelper {
      * @param [proxy] 设置的代理地址,例如:http://proxy_user:proxy_password@proxy_ip_or_host:proxy_port
      * @returns promise对象 
      */
-    static post(api: string, data: object, proxy: string | null = null): Promise<ApiResponse> {
+    static post(api: string, data: object, parseJson: boolean, proxy: string | null = null): Promise<any> {
         let agent: any = null;
         if (proxy) {
             agent = new HttpsProxyAgent({
@@ -41,7 +41,7 @@ export class ApiRequestHelper {
             })
         }
 
-        return new Promise<ApiResponse>((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             const opts: any = {
                 method: 'POST',
                 url: api,
@@ -55,13 +55,16 @@ export class ApiRequestHelper {
                     reject(err);
                 } else {
                     const stringBody = data.toString();
-                    try {
-                        const responseObject = JSON.parse(stringBody);
-                        resolve(responseObject);
-                    } catch (error) {
-                        reject(stringBody)
+                    if (parseJson) {
+                        try {
+                            const responseObject = JSON.parse(stringBody);
+                            resolve(responseObject);
+                        } catch (error) {
+                            reject(error)
+                        }
+                    } else {
+                        resolve(stringBody);
                     }
-                    resolve(res);
                 }
             });
         });
@@ -363,7 +366,7 @@ export class OauthApiHelper {
      */
     static apiRequest(url: string, postData: object, proxy: string | null = null): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            ApiRequestHelper.post(url, postData, proxy).then((responseInfo) => {
+            ApiRequestHelper.post(url, postData, true, proxy).then((responseInfo) => {
                 const status = responseInfo.status;
                 const message = responseInfo.message;
                 const responseData = responseInfo.data;
