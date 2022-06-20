@@ -184,7 +184,7 @@ export class OauthApiHelper {
      * @returns  返回用户open_id以及其他信息
      */
     static token(appId: string, code: string, secret: string, proxy: string | null = null): Promise<number> {
-        const api = OauthApiHelper.getApiByPath("/CommonResource/getUserCount");
+        const api = OauthApiHelper.getApiByPath("/OAuth2/token");
         const postData = {
             'app_id': appId,
             code,
